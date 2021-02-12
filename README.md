@@ -49,6 +49,7 @@ After image build, we can set env to specify request URL, port and timeout to op
 |RATINGS_PORT|Ratings service port|80|
 |REVIEWS_HOSTNAME|Reviews service hostname|bookinfo-reviews|
 |REVIEWS_PORT|Reviews service port|80|
+|TIMEOUT|Timeout limit to request opposite services. (s)|60.0|
 
 `reviews`
 |env |value|example|
@@ -56,7 +57,7 @@ After image build, we can set env to specify request URL, port and timeout to op
 |SERVICES_DOMAIN|URL domain|bookinfo.svc.cluster.local|
 |RATINGS_HOSTNAME|Ratings service hostname|bookinfo-ratings|
 |RATINGS_PORT|Ratings service port|80|
-
+|TIMEOUT|Timeout limit to request ratings service. (ms)|60000|
 
 ## Deploy to Knative
 Apply ksvc manifests to deploy apps to Knative.
