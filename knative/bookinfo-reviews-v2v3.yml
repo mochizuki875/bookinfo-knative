@@ -1,0 +1,39 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: bookinfo-reviews
+  namespace: bookinfo
+  labels:
+    networking.knative.dev/visibility: cluster-local
+spec:
+  template:
+    metadata:
+      # Revision名の指定
+      name: bookinfo-reviews-v3
+      labels:
+        app: reviews
+        version: v3
+    spec:
+      containers:
+        - image: keitamochizuki/bookinfo-reviews-v3:v1.9.0
+          env:
+            - name: SERVICES_DOMAIN
+              value: "bookinfo.svc.cluster.local"
+            - name: RATINGS_HOSTNAME
+              value: "bookinfo-ratings"
+            - name: RATINGS_PORT
+              value: "80"
+            # ratingへのタイムアウト値設定(ms)
+            - name: TIMEOUT
+              value: "60000"
+
+          # コンテナのポート指定
+          ports:
+            - containerPort: 9080
+  traffic:
+  - percent: 50
+    revisionName: bookinfo-reviews-v2
+    tag: v2
+  - percent: 50
+    revisionName: bookinfo-reviews-v3
+    tag: v3

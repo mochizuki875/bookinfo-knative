@@ -1,0 +1,25 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: bookinfo-ratings
+  namespace: bookinfo
+  labels:
+    networking.knative.dev/visibility: cluster-local
+spec:
+  template:
+    metadata:
+      # Revision名の指定
+      name: bookinfo-ratings-v1
+      labels:
+        app: ratings
+        version: v1
+    spec:
+      containers:
+        - image: docker.io/istio/examples-bookinfo-ratings-v1:1.16.2
+          # コンテナのポート指定
+          ports:
+            - containerPort: 9080
+  traffic:
+  - percent: 100
+    revisionName: bookinfo-ratings-v1
+    tag: v1

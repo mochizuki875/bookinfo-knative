@@ -1,0 +1,44 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: bookinfo-productpage
+  namespace: bookinfo
+spec:
+  template:
+    metadata:
+      # Revision名の指定
+      name: bookinfo-productpage-v1
+      labels:
+        app: productpage
+        version: v1
+    spec:
+      containers:
+        - image: keitamochizuki/bookinfo-productpage:v1.9.0
+          env:
+            - name: SERVICES_DOMAIN
+              value: "bookinfo.svc.cluster.local"
+            - name: DETAILS_HOSTNAME
+              value: "bookinfo-details"
+            - name: DETAILS_PORT
+              value: "80"
+            - name: RATINGS_HOSTNAME
+              value: "bookinfo-ratings"
+            - name: RATINGS_PORT
+              value: "80"
+            - name: REVIEWS_HOSTNAME
+              value: "bookinfo-reviews"
+            - name: REVIEWS_PORT
+              value: "80"
+            # details,reviewsへのタイムアウト値設定(s)
+            - name: TIMEOUT
+              value: "60.0"  
+          # コンテナのポート指定
+          ports:
+            - containerPort: 9080
+  traffic:
+  - percent: 100
+    revisionName: bookinfo-productpage-v1
+    tag: v1
+  # - tag: latest # 最新revisionへのルーティング設定
+  #   latestRevision: true
+  #   percent: 0 
