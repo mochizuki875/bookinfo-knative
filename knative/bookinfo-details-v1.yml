@@ -8,18 +8,15 @@ metadata:
 spec:
   template:
     metadata:
-      # Revision名の指定
-      name: bookinfo-details-v1
+      name: bookinfo-details-v1  # Revision名の指定
       labels:
         app: details
         version: v1
     spec:
       containers:
         - image: docker.io/istio/examples-bookinfo-details-v1:1.16.2
-          # コンテナのポート指定
           ports:
             - containerPort: 9080
-
   traffic:
   - percent: 100
     revisionName: bookinfo-details-v1

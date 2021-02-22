@@ -6,8 +6,7 @@ metadata:
 spec:
   template:
     metadata:
-      # Revision名の指定
-      name: bookinfo-productpage-v1
+      name: bookinfo-productpage-v1  # Revision名の指定
       labels:
         app: productpage
         version: v1
@@ -32,13 +31,9 @@ spec:
             # details,reviewsへのタイムアウト値設定(s)
             - name: TIMEOUT
               value: "60.0"  
-          # コンテナのポート指定
           ports:
             - containerPort: 9080
   traffic:
   - percent: 100
     revisionName: bookinfo-productpage-v1
     tag: v1
-  # - tag: latest # 最新revisionへのルーティング設定
-  #   latestRevision: true
-  #   percent: 0 

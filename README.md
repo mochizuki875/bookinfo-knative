@@ -4,6 +4,8 @@ The manifests and source code to deploy bookinfo app (ex Istio) to Knative.
 It enables to set request URL, port and timeout to opposite service using env.  
 Bookinfo app comes from Istio's sample app.  
 
+![](./img/img-1.png)
+
 Istio docs  
 https://istio.io/latest/docs/examples/bookinfo/  
 
